@@ -1,17 +1,17 @@
 {% extends "template.html" %}
 
 {% block headline %}
-	<h1>Signup</h1>
+	<h1>Sign Up</h1>
 {% endblock headline %}
 
 {% block body %}
-	<form action="/checkSignup">
-		<label for="email">Email</label><br>
-		<input type="text" id="email" name="email"><br>
-		<label for="password">Password</label><br>
-		<input type="password" id="password" name="password"><br>
-		<label for="username">Username</label><br>
-		<input type="text" id="username" name="username"><br>
-		<input type="submit" value="Submit">
-	</form>
+	<div>
+		<form method="POST" action="">
+			{{ form.hidden_tag() }}	
+			{{ form.username }}
+			{{ form.email }}
+			{{ form.password }}
+			{{ form.submit }}
+		</form>
+	</div>
 {% endblock body %}

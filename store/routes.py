@@ -1,5 +1,6 @@
 from flask import flash, render_template, redirect, url_for, request, make_response
 from store.models import Items, Users, databaseResults
+from store.forms import RegistrationForm, LoginForm
 from store import app, db
 
 @app.route('/')
@@ -25,44 +26,24 @@ def addStock():
 		return redirect('/addStock')
 	return render_template("addStock.html")
 
-@app.route('/login')
-def login():
-	return render_template("login.html")
 
-@app.route('/checkLogin')
-def checkLogin():
-	username = request.args.get("username")
-	password = request.args.get("password")
-	print(username)
-	print(password)
-	if type(username) == str and type(password) == str:
-		user = Users.query.filter(Users.username==username).first() 
-		if user.password == password:
-			print("Succesfull")
-			return redirect('/home')
-		else:
-			print("Failed")
-			return redirect('/login')
-
-@app.route('/signup')
+@app.route('/signup', methods=["GET","POST"])
 def signup():
-	return render_template("signup.html")
-
-@app.route('/checkSignup')
-def checkSignup():
-	email = request.args.get("email")
-	username = request.args.get("username")
-	password = request.args.get("password")
-	print(email)
-	print(password)
-	print(username)
-	if type(username) == str and type(password) == str and type(email) == str:
-		print("ran")
-		for user in Users.query.all():
-			if username != user.username and email != user.email:
-				db.session.add(Users(email=email,password=password,username=username))
+	form=RegistrationForm()
+	if form.validate_on_submit():
+		if form.username.data != Users.query.filter_by(username=form.username.data).first:
+			if form.email.data != Users.query.filter_by(email=form.email.data).first:
+				user = Users(email=form.email.data,username=form.username.data,password=form.password.data)
+				db.session.add(user)
 				db.session.commit()
-				print("Succesfull")
 				return redirect('/login')
-	print("Failed")
-	return redirect('/signup')
+			else:
+				return render_template("signup.html", form=form)
+		
+	
+
+
+@app.route('/login', methods=["GET","POST"])
+def login():
+	form=LoginForm()
+	return render_template("login.html", form=form)
