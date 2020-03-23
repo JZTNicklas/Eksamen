@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+header {
+  display: flex;
+  justify-content: space-between; }
+
+h1 {
+  display: flex;
+  justify-content: center;
+  font-size: 30px; }
+
+#contentWrapper {
+  margin: 20px; }
+
+button {
+  margin-top: 5px;
+  padding: 2px;
+  background-color: white;
+  border: solid black 2px;
+  border-radius: 2px; }
+
+table {
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse; }
+  table th {
+    height: 50px;
+    width: 33%;
+    border: 1px solid black;
+    padding: 5px; }
+  table td {
+    height: 25px;
+    border: 1px solid black;
+    padding: 5px; }

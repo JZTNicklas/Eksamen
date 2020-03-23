@@ -1,0 +1,16 @@
+{% extends "template.html" %}
+
+{% block headline %}
+	<h1>Login</h1>
+{% endblock headline %}
+
+{% block body %}
+	<form action="/checkLogin">
+		<label for="username">Username</label><br>
+		<input type="text" id="username" name="username"><br>
+		<label for="password">Password</label><br>
+		<input type="password" id="password" name="password"><br>
+		<input type="submit" value="Login">
+	</form><br>
+	<a href="/signup">Not already a user. Click here to sign up</a>
+{% endblock body %}
