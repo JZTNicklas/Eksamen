@@ -17,17 +17,22 @@ h1 {
   text-decoration: none; }
 #contentWrapper #navbar {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  height: 2rem;
   background-color: rgba(160, 182, 217, 0.3);
   margin: 0 0 1rem 0; }
+  #contentWrapper #navbar #homeLink {
+    width: 100%;
+    display: flex;
+    justify-content: center; }
   #contentWrapper #navbar #userHandling {
     width: 100%;
     display: flex;
-    justify-content: space-between; }
+    justify-content: center; }
   #contentWrapper #navbar #userStock {
     width: 100%;
     display: flex;
-    justify-content: end; }
+    justify-content: flex-end; }
 
 table {
   width: 100%;
