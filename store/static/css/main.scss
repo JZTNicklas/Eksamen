@@ -2,6 +2,7 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	font-family: 'Roboto', sans-serif;
 }
 header {
 	display: flex;
@@ -10,37 +11,49 @@ header {
 h1 {
 	display: flex;
 	justify-content: center;
-	font-size: 30px;
+	font-size: 2rem;
 }
 
 #contentWrapper {
-	margin: 20px;
-
+	a {
+		text-decoration: none;
+	}
+	#navbar {
+		display: flex;
+		justify-content: space-around;
+		background-color: rgba(160, 182, 217, 0.3);
+		margin: 0 0 1rem 0;
+		#userHandling {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+		}
+		#userStock {
+			width: 100%;
+			display: flex;
+			justify-content: end;
+		}
+	}
 }
 
-button {
-	margin-top: 5px;
-	padding: 2px;
-	background-color: white;
-	border: solid black 2px;
-	border-radius: 2px;
-}
+
 
 table {
 	width: 100%;
-	border:1px solid black;
+	border:.1rem solid black;
 	border-collapse: collapse;
 	
 	th {
-		height: 50px;
+		height: 3rem;
 		width: 33%;
-		border:1px solid black;
-		padding: 5px;
+		border:.1rem solid black;
+		padding: .3rem;
 	}
 
 	td {
-		height: 25px;
-		border:1px solid black;
-		padding: 5px;
+		height: 2rem;
+		border:.1rem solid black;
+		padding: .3rem;
 	}
 }
+

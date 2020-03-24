@@ -34,27 +34,22 @@ def addStock():
 def signup():
 	form=RegistrationForm()
 	if form.validate_on_submit():
-		print("validated")
-		if form.username.data != Users.query.filter_by(username=form.username.data).first().username:
-			print("username unique",form.username.data)
-			if form.email.data != Users.query.filter_by(email=form.email.data).first().email:
-				print("email unique", form.email.data)
-				user = Users(email=form.email.data,username=form.username.data,password=form.password.data)
-				print(user)
-				db.session.add(user)
-				db.session.commit()
-				return redirect('/login')
-			else:
-				pass
+		if Users.query.filter_by(username=form.username.data).first():
+			return render_template("signup.html", form=form)
+		if Users.query.filter_by(email=form.email.data).first():
+			return render_template("signup.html", form=form)	
+		user = Users(email=form.email.data,username=form.username.data,password=form.password.data)
+		db.session.add(user)
+		db.session.commit()
+		return redirect('/login')
 	return render_template("signup.html", form=form)
+	
 		
 	
 
 
 @app.route('/login', methods=["GET","POST"])
 def login():
-	if current_user.is_authenticated:
-		return redirect('/home')
 	form=LoginForm()
 	if form.validate_on_submit():
 		user = Users.query.filter_by(username=form.username.data).first()
@@ -63,11 +58,7 @@ def login():
 			next_page = request.args.get('next')
 			if next_page:
 				return redirect(next_page)
-			print("Succes")
 			return redirect('/home')
-		else:
-			pass
-	print("not Succes")
 	return render_template("login.html", form=form)
 
 @app.route('/logout')

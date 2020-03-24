@@ -3,20 +3,26 @@
 <head>
 	<title>Store</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
 	<div id="contentWrapper">
-		<div>
-			{% if current_user.is_authenticated %}
+		<div id="navbar">
+			<a href="/home">Home</a>
+			<div id="userStock">
+				{% if current_user.is_authenticated %}
+					<a href="/stock">Stock</a>
+					{% if current_user.isAdmin() %}
+						<a href="/addStock">Add Stock</a>
+					{% endif %}
+			</div>
+			<div id="userHandling">
 				<a href="/logout">Logout</a>
-				<a href="/stock">Stock</a>
-				{% if current_user.isAdmin() %}
-					<a href="/addStock"><button>Edit Stock</button></a>
+				{% else %}
+					<a href="/login">Login</a>
+					<a href="/signup">Sign up</a>
 				{% endif %}
-			{% else %}
-				<a href="/login">Login</a>
-				<a href="/signup">Sign up</a>
-			{% endif %}
+			</div>
 		</div>
 		<header>
 			{% block headline %}
