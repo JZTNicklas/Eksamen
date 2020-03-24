@@ -1,7 +1,8 @@
-from flask import flash, render_template, redirect, url_for, request, make_response
+from flask import render_template, redirect, url_for, request, make_response
 from store.models import Items, Users, databaseResults
 from store.forms import RegistrationForm, LoginForm
 from store import app, db
+from flask_login import login_user, logout_user, current_user, login_required
 
 @app.route('/')
 @app.route('/home')
@@ -10,12 +11,14 @@ def home():
 
 
 @app.route('/stock')
+@login_required
 def stock():
 	result = Items.query.all()
 	table = databaseResults(result)
 	return render_template("stock.html", table=table)
 
 @app.route('/addStock')
+@login_required
 def addStock():
 	name = request.args.get("name")
 	price = request.args.get("price")
@@ -31,19 +34,44 @@ def addStock():
 def signup():
 	form=RegistrationForm()
 	if form.validate_on_submit():
-		if form.username.data != Users.query.filter_by(username=form.username.data).first:
-			if form.email.data != Users.query.filter_by(email=form.email.data).first:
+		print("validated")
+		if form.username.data != Users.query.filter_by(username=form.username.data).first().username:
+			print("username unique",form.username.data)
+			if form.email.data != Users.query.filter_by(email=form.email.data).first().email:
+				print("email unique", form.email.data)
 				user = Users(email=form.email.data,username=form.username.data,password=form.password.data)
+				print(user)
 				db.session.add(user)
 				db.session.commit()
 				return redirect('/login')
 			else:
-				return render_template("signup.html", form=form)
+				pass
+	return render_template("signup.html", form=form)
 		
 	
 
 
 @app.route('/login', methods=["GET","POST"])
 def login():
+	if current_user.is_authenticated:
+		return redirect('/home')
 	form=LoginForm()
+	if form.validate_on_submit():
+		user = Users.query.filter_by(username=form.username.data).first()
+		if user and form.password.data == user.password:
+			login_user(user,False)
+			next_page = request.args.get('next')
+			if next_page:
+				return redirect(next_page)
+			print("Succes")
+			return redirect('/home')
+		else:
+			pass
+	print("not Succes")
 	return render_template("login.html", form=form)
+
+@app.route('/logout')
+def logout():
+	logout_user()
+	return redirect('/home')
+
