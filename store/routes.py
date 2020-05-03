@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, request, make_response
 from store.models import Items, Users, databaseResults
-from store.forms import RegistrationForm, LoginForm
+from store.forms import RegistrationForm, LoginForm, AddToStockForm
 from store import app, db
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -17,17 +17,29 @@ def stock():
 	table = databaseResults(result)
 	return render_template("stock.html", table=table)
 
-@app.route('/addStock')
+@app.route('/addStock', methods=["Get","POST"])
 @login_required
 def addStock():
-	name = request.args.get("name")
-	price = request.args.get("price")
-	stock = request.args.get("stock")
-	if type(name) == str and type(price) == str and type(stock) == str:
-		db.session.add(Items(name=name,price=float(price),stock=int(stock)))
+	form=AddToStockForm()
+	if form.validate_on_submit():
+		print("Valid")
+		db.session.add(Items(name=form.name.data,price=float(form.price.data),stock=int(form.stock.data)))
 		db.session.commit()
 		return redirect('/addStock')
-	return render_template("addStock.html")
+	return render_template("addStock.html", form=form)
+
+@app.route('/cart', methods=["Get","POST"])
+@login_required
+def cart():
+	print(current_user)
+	return render_template("cart.html")
+
+
+@app.route('/addToCart', methods=["Get","POST"])
+@login_required
+def addToCart():
+
+	return redirect('/cart')
 
 
 @app.route('/signup', methods=["GET","POST"])
@@ -43,10 +55,6 @@ def signup():
 		db.session.commit()
 		return redirect('/login')
 	return render_template("signup.html", form=form)
-	
-		
-	
-
 
 @app.route('/login', methods=["GET","POST"])
 def login():

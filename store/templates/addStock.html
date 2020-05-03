@@ -5,14 +5,17 @@
 {% endblock headline %}
 
 {% block body %}
-	<form action="/addStock">
-		<label for="name">Name of product:</label><br>
-		<input type="text" id="name" name="name"><br>
-		<label for="name">Price:</label><br>
-		<input type="text" id="price" name="price"><br>
-		<label for="name">Stock:</label><br>
-		<input type="text" id="Stock" name="stock"><br><br>
-		<input type="submit" value="Submit">
+	<form method="POST" action="" class="center">
+		<div id="form" class="center">
+			{{ form.hidden_tag() }}	
+			<p>Name</p>
+			{{ form.name }}
+			<p>Price</p>
+			{{ form.price }}
+			<p>Stock</p>
+			{{ form.stock }}
+			{{ form.submit}}
+		</div>	
 	</form>
 	<a href="/stock"><button>Back to stock</button></a>
 {% endblock body %}
