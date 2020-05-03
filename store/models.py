@@ -27,7 +27,7 @@ class Users(db.Model, UserMixin):
 	password = db.Column(db.String)
 	username = db.Column(db.String, unique=True)
 	admin = db.Column(db.Boolean,default=False)
-	cart = db.relationship("Carts",backref="user",lazy=True)
+	cart = db.relationship("Carts", backref="users",lazy=True)
 
 	def __repr__(self):
 		return self.email
@@ -41,25 +41,29 @@ class Users(db.Model, UserMixin):
 
 class Carts(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	cartItems = db.relationship("Dag",backref="calendar",lazy=True)
+	cartItems = db.relationship("CartItems", backref="carts",lazy=True)
 	user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
 	def __repr__(self):
-		return self.name
+		return str(self.user_id)
 
 class CartItems(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String, nullable=false)
-	price = db.Column(db.String, nullable=false)
-	stock = db.Column(db.String, nullable=false)
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	name = db.Column(db.String, nullable=False)
+	stock = db.Column(db.String, nullable=False)
 	cart_id = db.Column(db.Integer, db.ForeignKey("carts.id"), nullable=False)
 
 	def __repr__(self):
 		return self.name
 
-class databaseResults(Table):
+class StockTable(Table):
 	id = Col('id', show=False)
 	name = Col('Name')
 	price = Col('Price')
 	stock = Col('Stock')
 
+class CartTable(Table):
+	id = Col('id', show=False)
+	name = Col('Name')
+	price = Col('Price')
+	stock = Col('Stock')

@@ -19,3 +19,8 @@ class AddToStockForm(FlaskForm):
 	price = StringField("price", validators=[DataRequired()])
 	stock = StringField("stock", validators=[DataRequired()])
 	submit = SubmitField("Submit")
+
+class AddToCartForm(FlaskForm):
+	name = StringField("name", validators=[DataRequired()])
+	stock = StringField("stock", validators=[DataRequired()])
+	submit = SubmitField("Submit")

@@ -1,9 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+{% extends "template.html" %}
 
-</body>
-</html>
+{% block headline %}
+	<h1>Add to cart</h1>
+{% endblock headline %}
+
+{% block body %}
+	<form method="POST" action="" class="center">
+		<div id="form" class="center">
+			{{ form.hidden_tag() }}	
+			<p>Name</p>
+			{{ form.name }}
+			<p>Stock</p>
+			{{ form.stock }}
+			{{ form.submit}}
+		</div>	
+	</form>
+{% endblock body %}
