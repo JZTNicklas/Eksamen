@@ -8,28 +8,25 @@
 <body>
 	<div id="contentWrapper">
 		<div id="navbar">
-			<div id="homeLink">
-				<a href="/home">Home</a>
-			</div>
-			<div id="userStock">
-				{% if current_user.is_authenticated %}
+			{% if current_user.is_authenticated %}
+				<div class="space-around">
+					<a href="/home">Home</a>
 					<a href="/stock">Stock</a>
+					<a href="/cart">Your cart</a>
 					{% if current_user.isAdmin() %}
-						<a href="/addStock">Add Stock</a>
+						<a href="/addStock">Edit stock</a>
 					{% endif %}
-			</div>
-			<div id="userHandling">
-				<a href="/logout">Logout</a>
-				{% else %}
-					<div>
-						<a href="/login">Login</a>
-						<a href="/signup">Sign up</a>	
-					</div>
-
-				{% endif %}
-			</div>
+					<a href="/logout">Log out</a>
+				</div>	
+			{% else %}
+				<div class="space-around">
+					<a href="/login">Login</a>
+					<a href="/signup">Sign up</a>
+				</div>
+					
+			{% endif %}
 		</div>
-		<header>
+		<header class="center">
 			{% block headline %}
 
 			{% endblock headline%}

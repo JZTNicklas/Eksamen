@@ -50,7 +50,7 @@ class Carts(db.Model):
 class CartItems(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	name = db.Column(db.String, nullable=False)
-	stock = db.Column(db.String, nullable=False)
+	stock = db.Column(db.Integer, nullable=False)
 	cart_id = db.Column(db.Integer, db.ForeignKey("carts.id"), nullable=False)
 
 	def __repr__(self):
@@ -65,5 +65,4 @@ class StockTable(Table):
 class CartTable(Table):
 	id = Col('id', show=False)
 	name = Col('Name')
-	price = Col('Price')
 	stock = Col('Stock')
