@@ -22,18 +22,15 @@ def stock():
 def addStock():
 	form=AddToStockForm()
 	if form.validate_on_submit():
-		item = Items.query.filter_by(name=form.stock.data).first() 
+		item = Items.query.filter_by(name=form.name.data).first() 
 		if item:
-			item.stock = int(form.stock.data)
+			item.stock += int(form.stock.data)
 		else:
 			db.session.add(Items(name=form.name.data,price=float(form.price.data),stock=int(form.stock.data)))
 		db.session.commit()
 		return redirect('/addStock')
 	return render_template("addStock.html", form=form)
 
-@app.route('/red')
-def red():
-	return redirect('/red')
 
 @app.route('/cart', methods=["Get","POST"])
 @login_required
