@@ -105,6 +105,27 @@ def login():
 			return redirect('/home')
 	return render_template("login.html", form=form)
 
+@app.route('/delCart', methods=["GET","POST"])
+@login_required
+def delCart():
+	form = AddToCartForm()
+	if form.validate_on_submit():
+		cart = Carts.query.filter_by(user_id=current_user.id).first()
+		item = Items.query.filter_by(name=form.name.data).first()
+		cartItem = CartItems.query.filter_by(name=form.name.data).first()
+		print("valid")
+		if cartItem:
+			cartItem.stock -= int(form.stock.data)
+			item.stock += int(form.stock.data)
+			db.session.commit()
+			print("succes")
+		return redirect('/cart')
+	result = Items.query.all()
+	table = StockTable(result)
+	return render_template("addToCart.html", form=form, table=table)
+
+
+
 @app.route('/logout')
 def logout():
 	logout_user()

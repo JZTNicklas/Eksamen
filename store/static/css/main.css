@@ -26,39 +26,42 @@ h1 {
   justify-content: center;
   font-size: 2rem; }
 
-#contentWrapper a {
-  text-decoration: none; }
-#contentWrapper #navbar {
-  display: flex;
-  justify-content: center;
-  height: 2rem;
-  background-color: rgba(160, 182, 217, 0.3);
-  margin: 0 0 1rem 0;
-  padding: 0.5rem; }
-  #contentWrapper #navbar #homeLink {
-    width: 100%;
+#contentWrapper {
+  background-color: #2e2d2d; }
+  #contentWrapper a {
+    text-decoration: none; }
+  #contentWrapper #navbar {
     display: flex;
-    justify-content: center; }
-  #contentWrapper #navbar #userHandling {
-    width: 100%;
-    display: flex;
-    justify-content: center; }
-    #contentWrapper #navbar #userHandling #loginlogout {
-      justify-content: space-between; }
-  #contentWrapper #navbar #userStock {
-    width: 100%;
-    display: flex;
-    justify-content: space-around; }
-#contentWrapper #form {
-  flex-direction: column; }
-#contentWrapper #content {
-  flex-direction: column; }
-  #contentWrapper #content a {
-    padding: .2rem;
-    margin: .2rem; }
+    justify-content: center;
+    height: 2rem;
+    background-color: rgba(160, 182, 217, 0.3);
+    margin: 0 0 1rem 0;
+    padding: 0.5rem; }
+    #contentWrapper #navbar #homeLink {
+      width: 100%;
+      display: flex;
+      justify-content: center; }
+    #contentWrapper #navbar #userHandling {
+      width: 100%;
+      display: flex;
+      justify-content: center; }
+      #contentWrapper #navbar #userHandling #loginlogout {
+        justify-content: space-between; }
+    #contentWrapper #navbar #userStock {
+      width: 100%;
+      display: flex;
+      justify-content: space-around; }
+  #contentWrapper #form {
+    flex-direction: column; }
+  #contentWrapper #content {
+    flex-direction: column;
+    padding: 1rem; }
+    #contentWrapper #content a {
+      padding: .2rem;
+      margin: .2rem; }
 
 table {
-  width: 100%;
+  width: 70%;
   border: .1rem solid black;
   border-collapse: collapse; }
   table th {
